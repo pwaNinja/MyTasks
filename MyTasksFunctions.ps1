@@ -96,7 +96,7 @@ Function _ImportTasks {
         } 
         $propHash | out-string | write-verbose
         Try {     
-            $tmp = New-Object -TypeName MyTask -ArgumentList $propHash.Name, $propHash.DueDate, $propHash.Description, $propHash.Category
+            $tmp = New-Object -TypeName MyTask -ArgumentList $propHash.Name,  (Get-Date $propHash.DueDate), $propHash.Description, $propHash.Category
 
             #set additional properties
             $tmp.TaskID = $prophash.TaskID
@@ -200,7 +200,7 @@ Function New-MyTask {
             Write-Verbose "[PROCESS] Calculating due date in $Days days"
             $DueDate = (Get-Date).AddDays($Days)
         }
-        $task = New-Object -TypeName MyTask -ArgumentList $Name, $DueDate, $Description, $Category
+        $task = New-Object -TypeName MyTask -ArgumentList $Name, (Get-Date $DueDate), $Description, $Category
 
         #convert to xml
         Write-Verbose "[PROCESS] Converting to XML"
